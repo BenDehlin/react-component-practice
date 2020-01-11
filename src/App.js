@@ -10,11 +10,13 @@ export default class App extends Component{
     this.state={
       data: data,
       currentValue: 0,
-      display: 'display'
+      display: 'display',
+      obj: {}
     }
     this.handleCycle = this.handleCycle.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleDisplay = this.handleDisplay.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.handleSave = this.handleSave.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
   }
@@ -49,6 +51,19 @@ export default class App extends Component{
     this.setState({data: arr, display: 'display'})
   }
 
+  handleChange({name, value}){
+    let obj = this.state.data[this.state.currentValue]
+    if(name === 'first'){
+      obj.name.first = value
+    }else if(name === 'last'){
+      obj.name.last = value
+    }else if(name === 'title'){
+      obj.title = value
+    }else if(name === 'employer'){
+      obj.employer = value
+    }
+    this.setState({obj: obj})
+  }
   render(){
     let {display, data, currentValue} = this.state
     return(
@@ -58,7 +73,8 @@ export default class App extends Component{
           <View    obj={data[currentValue]}
                    handleCycle={this.handleCycle} 
                    handleDelete={this.handleDelete}
-                   handleDisplay={this.handleDisplay} 
+                   handleDisplay={this.handleDisplay}
+                   handleChange={this.handleChange} 
                    handleSave={this.handleSave}
                    handleCancel={this.handleCancel}
                    display={display}

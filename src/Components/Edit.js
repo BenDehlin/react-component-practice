@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import '../App.css'
 
-
+//Deprecated
 export default class Edit extends Component{
   constructor(props){
     super(props)
