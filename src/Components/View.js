@@ -13,7 +13,7 @@ export default class View extends Component{
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange=(name, value)=>{
+  handleChange=({name, value})=>{
     let obj = this.state.obj
     if(name === 'first'){
       obj.name.first = value
@@ -24,12 +24,14 @@ export default class View extends Component{
     }else if(name === 'employer'){
       obj.name.employer = value
     }
-    console.log(name, value)
+    this.setState({obj: obj})
+    console.log(this.state.obj)
   }
 
   render(){
       let {handleCycle, handleDisplay, handleDelete, handleCancel, handleSave,
-          display, obj} = this.props
+          display} = this.props
+      let {obj} = this.state
       let buttons = ''
       let view = ''
       if(display === 'display'){
@@ -47,14 +49,14 @@ export default class View extends Component{
         buttons = (
           <div>
             <button onClick={() => handleCancel()}>Cancel</button>
-            <button onClick={() => handleSave()}>Save</button>
+            <button onClick={() => handleSave(obj)}>Save</button>
           </div>)
       }else if(display === 'edit'){
         view = (<Edit obj={obj} handleChange={this.handleChange} />)
         buttons = (
           <div>
             <button onClick={() => handleCancel()}>Cancel</button>
-            <button onClick={() => handleSave()}>Save</button>
+            <button onClick={() => handleSave(obj)}>Save</button>
         </div>)
       }
     

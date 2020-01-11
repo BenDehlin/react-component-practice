@@ -24,7 +24,8 @@ export default class App extends Component{
     let lastItem = this.state.data.length-1
     if(direction === 'next'){value === lastItem ? value = 0 : value++}
     else if(direction === 'previous'){value === 0 ? value = lastItem : value--}
-    this.setState({currentValue: value})
+    this.setState({currentValue: value, data: this.state.data})
+    console.log(true, this.state.currentValue, this.state.data[this.state.currentValue])
   }
 
   handleDelete(){
@@ -42,16 +43,17 @@ export default class App extends Component{
     this.setState({display: 'display'})
   }
 
-  handleSave(data){
-    alert("Save coming soon")
-    this.setState({display: 'display'})
+  handleSave(obj){
+    let arr = this.state.data
+    arr[this.state.currentValue] = obj
+    this.setState({data: arr, display: 'display'})
   }
 
   render(){
     let {display, data, currentValue} = this.state
     return(
       <div>
-        <header></header>
+        <header>{data[currentValue].name.first}</header>
         <div>
           <View    obj={data[currentValue]}
                    handleCycle={this.handleCycle} 
@@ -59,7 +61,8 @@ export default class App extends Component{
                    handleDisplay={this.handleDisplay} 
                    handleSave={this.handleSave}
                    handleCancel={this.handleCancel}
-                   display={display} />
+                   display={display}
+                   currentValue={currentValue} />
         </div>
       </div>
     )
